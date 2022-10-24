@@ -2,6 +2,7 @@
 
 
 // Подгрузка классов модуля
+/*
 Bitrix\Main\Loader::registerAutoLoadClasses('renins', [
 	\Renins\CompetitionBestName::class => 'lib/CompetitionBestName.php',
 	\Renins\CompetitionProposal::class => 'lib/CompetitionProposal.php',
@@ -83,3 +84,4 @@ Bitrix\Main\Loader::registerAutoLoadClasses('renins', [
 	\Renins\TimeSheetOverwork::class => 'lib/TimeSheetOverwork.php',
 	\Renins\Orm\TimeSheetOverworkLogTable::class => 'lib/orm/TimeSheetOverworkLog.php',
 ]);
+*/

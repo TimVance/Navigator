@@ -2,14 +2,14 @@
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main;
 /**
- * Class Renins
+ * Class
  */
-class Renins extends \CModule
+class gm_discounts extends \CModule
 {
     /**
      * @var string
      */
-    const MODULE_ID = 'renins';
+    const MODULE_ID = 'gm.discounts';
     /**
      * @var string
      */
@@ -44,11 +44,11 @@ class Renins extends \CModule
         include(realpath(__DIR__) . '/version.php');
         $this->MODULE_VERSION = $moduleVersion['VERSION'];
         $this->MODULE_VERSION_DATE = $moduleVersion['VERSION_DATE'];
-        $this->MODULE_NAME = Loc::getMessage('RENINS_MODULE_NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('RENINS_MODULE_DESCRIPTION');
+        $this->MODULE_NAME = Loc::getMessage('MODULE_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('MODULE_DESCRIPTION');
 
-        $this->PARTNER_NAME = "Ренеанс";
-        $this->PARTNER_URI = "https://b24.renins.com/";
+        $this->PARTNER_NAME = "Good Morning";
+        $this->PARTNER_URI = "https://goodmg.ru/";
     }
     /**
      * Регистрация модуля в БД

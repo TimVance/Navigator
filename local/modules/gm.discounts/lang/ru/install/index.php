@@ -1,5 +1,5 @@
 <?php
-$MESS['RENINS_MODULE_NAME'] = 'Ренесанс';
-$MESS['RENINS_MODULE_DESCRIPTION'] = 'Содержит специфические доработки и настройки';
+$MESS['MODULE_NAME'] = 'GoodMorning. Расчет скидки';
+$MESS['MODULE_DESCRIPTION'] = 'Модуль считает и записывает скидку - дельту двух выбранных цен';
 $MESS['INSTALL_TITLE'] = 'Установка кастомного модуля кастомных свойств инфоблока';
 $MESS['UNINSTALL_TITLE'] = 'Удаление кастомного модуля кастомных свойств инфоблока';
