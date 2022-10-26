@@ -4,12 +4,12 @@ use Bitrix\Main;
 /**
  * Class
  */
-class gm_discounts extends \CModule
+class gmdiscounts extends \CModule
 {
     /**
      * @var string
      */
-    const MODULE_ID = 'gm.discounts';
+    const MODULE_ID = 'gmdiscounts';
     /**
      * @var string
      */
@@ -33,6 +33,8 @@ class gm_discounts extends \CModule
     /**
      * @var bool
      */
+    const moduleClassEvents = 'GM\\Handlers';
+    const moduleMethodEvents = 'recalcDiscount';
     public $errors = false;
     /**
      * Инициализация модуля
@@ -90,6 +92,7 @@ class gm_discounts extends \CModule
         if ($USER->IsAdmin()) {
             if (!IsModuleInstalled(self::MODULE_ID)) {
                 $this->InstallDB();
+                $this->InstallEvents();
                 $this->InstallFiles();
                 $GLOBALS['errors'] = $this->errors;
                 $APPLICATION->IncludeAdminFile(Loc::getMessage('INSTALL_TITLE'), realpath(__DIR__) . '/step.php');
@@ -105,8 +108,23 @@ class gm_discounts extends \CModule
         if ($USER->IsAdmin()) {
             $this->UnInstallDB(array());
             $this->UnInstallFiles();
+            $this->UnInstallEvents([]);
             $GLOBALS['errors'] = $this->errors;
             $APPLICATION->IncludeAdminFile(Loc::getMessage('UNINSTALL_TITLE'), realpath(__DIR__) . '/unstep.php');
         }
+    }
+
+    function InstallEvents($arParams = array())
+    {
+        $eventManager = \Bitrix\Main\EventManager::getInstance();
+        $eventManager->registerEventHandler("iblock", "OnAfterIBlockAdd", self::MODULE_ID, self::moduleClassEvents, self::moduleMethodEvents);
+        $eventManager->registerEventHandler("iblock", "OnAfterIBlockElementUpdate", self::MODULE_ID, self::moduleClassEvents, self::moduleMethodEvents);
+    }
+
+    function UnInstallEvents($arParams = array())
+    {
+        $eventManager = \Bitrix\Main\EventManager::getInstance();
+        $eventManager->unRegisterEventHandler("iblock", "OnAfterIBlockAdd", self::MODULE_ID, self::moduleClassEvents, self::moduleMethodEvents);
+        $eventManager->unRegisterEventHandler("iblock", "OnAfterIBlockElementUpdate", self::MODULE_ID, self::moduleClassEvents, self::moduleMethodEvents);
     }
 }
