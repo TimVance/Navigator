@@ -12,7 +12,7 @@ class GMDeliveryHandler extends \Bitrix\Sale\Delivery\Services\Base
     protected static $yandex_taxi_url               = 'https://b2b.taxi.yandex.net/b2b/cargo/integration/v1/check-price';
     protected static $dadata_token                  = '4b6e202a8fdd932f5e6dde08f59994751d2dc096';
     protected static $dadata_secret                 = '519bde754695001d451ca93df881f6fbac5b9be4';
-    protected static $yandex_coordinates            = [92.897362, 56.020034];
+    protected static $yandex_coordinates            = [92.897362, 56.020034]; // координаты склада
     protected static $yandex_token                  = 'y0_AgAAAABaqjygAAVM1QAAAADPbMhkyjL6b_jJRoOKpKkbf3_iT8nhfLc';
     protected static $cach_deliviery                 = 30; // Кеш доставки
 
@@ -142,16 +142,6 @@ class GMDeliveryHandler extends \Bitrix\Sale\Delivery\Services\Base
         $order        = $shipment->getCollection()->getOrder(); // заказ
         $props        = $order->getPropertyCollection();
 
-
-        \CEventLog::Add(array(
-            "SEVERITY"      => "MAIN",
-            "AUDIT_TYPE_ID" => "address",
-            "MODULE_ID"     => "main",
-            "ITEM_ID"       => 1,
-            "DESCRIPTION"   => print_r($props->getArray(), true),
-        ));
-
-
         $locationCode = '';
         try {
             $locationCode = $props->getAddress()->getValue(); // местоположение
@@ -162,7 +152,7 @@ class GMDeliveryHandler extends \Bitrix\Sale\Delivery\Services\Base
             // Cash price for locatiod code
             $cache = Cache::createInstance();
             $cachePath = 'gmyandex';
-            $cacheTtl = self::cach_deliviery;
+            $cacheTtl = self::$cach_deliviery;
             $cacheKey = $USER->GetID().$locationCode;
             if ($cache->initCache($cacheTtl, $cacheKey, $cachePath))
             {
